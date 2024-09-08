@@ -261,6 +261,7 @@
 
     .error-message {
       color: red;
+      font-size: 30px;
     }
     
   </style>
