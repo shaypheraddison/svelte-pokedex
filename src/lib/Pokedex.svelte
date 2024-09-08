@@ -88,7 +88,7 @@
 
   input {
     position: relative;
-    visibility:visible;
+    visibility:hidden;
   }
   main {
     /* margin-top: -100px; */
@@ -124,6 +124,7 @@
   }
 
   button {
+    visibility: hidden;
     margin: 0 10px auto;
     /* padding: 10px; */
     width: 40px;
