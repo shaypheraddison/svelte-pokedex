@@ -30,6 +30,10 @@
       pokemonTypeRelations[type] = typeData.damage_relations
     };
 
+    function openDex() {
+
+    }
+
     
   }
     
@@ -105,6 +109,9 @@
     width: 440px;
     height: 300px;
     border-radius: 50px;
+    border-left: 3px solid rgb(183, 183, 183);
+    border-right: 3px solid rgb(183, 183, 183);
+
   }
 
   .pokemon-search {
@@ -196,10 +203,17 @@
   }
 
   .start-btn {
-    width: 150px;
-    height: 100px;
-    margin: -120px auto;
+    width: 130px;
+    height: 130px;
+    margin: -135px auto;
     border-radius: 100px;
+    background-color: rgb(0, 238, 255);
+    border: 12px solid rgb(0, 183, 207);
+  }
+
+  .start-btn:hover {
+    background-color: rgba(0, 238, 255, 0.452);
+    border: 12px solid rgb(0, 183, 207, 0.452);
   }
   
 </style>
