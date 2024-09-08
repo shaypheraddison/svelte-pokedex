@@ -3,7 +3,6 @@
     // import Button from "./Api.svelte";
 
     let pokemonData;
-    let pokemonDamage;
     let pokemonTypes = [];
     let pokemonTypeRelations = {};
 
@@ -19,7 +18,6 @@
 
         await damageRelations();
 
-
         pokemon = "";
     }
 
@@ -31,8 +29,6 @@
         const typeData = await damageResponse.json();
 
         pokemonTypeRelations[type] = typeData.damage_relations
-        console.log(pokemonTypeRelations);
-
       };
     }
     
@@ -43,7 +39,10 @@
     <div class="kalos-dex">
       <img class="top-dex" src="../src/assets/kalosdex-top.png" alt="top-dex">
         <div class="screen">
+          <div class="pokemon-search">
             <input class="pokemon-name" type="text" bind:value={pokemon} placeholder="Enter Pokemon Name">
+            <button on:click={fetchPokemonData}></button>
+          </div>
             <div class="screen-content">
                 {#if pokemonData}
                 <div>
@@ -75,7 +74,6 @@
                 {/if}
             </div>
         </div>
-        <button on:click={fetchPokemonData}></button>
       <img class="bottom-dex" src="../src/assets/kalosdex-bottom.png" alt="bottom-dex">
     </div> 
 </main>
@@ -84,7 +82,7 @@
 <style>
   input {
     position: relative;
-    visibility: hidden;
+    visibility:visible;
   }
 
   main {
@@ -97,10 +95,19 @@
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    align-items: center;
     background-color: aquamarine;
-    width: 400px;
-    height: 300px;
+    width: 440px;
+    height: 800px;
     border-radius: 50px;
+  }
+
+  .pokemon-search {
+    margin-top: -120px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
   }
 
   .screen {
@@ -113,10 +120,10 @@
   }
 
   button {
-    margin: 5px auto;
-    padding: 10px;
-    width: 100px;
-    height: 100px;
+    margin: 0 10px auto;
+    /* padding: 10px; */
+    width: 40px;
+    height: 40px;
     border-radius: 100px;
     background-color: rgb(0, 153, 255);
   }
@@ -125,7 +132,6 @@
     display: block;
     font-size: large;
     width: 45%;
-    margin: 5px auto;
     padding: 10px;
   }
   input::placeholder {
