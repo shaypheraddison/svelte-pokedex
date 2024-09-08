@@ -22,12 +22,15 @@
 
   async function damageRelations() {
     
+    pokemonTypeRelations = {};
     for (const type of pokemonTypes) {
       const damageResponse = await fetch(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}/`);
       let typeData = await damageResponse.json();
 
       pokemonTypeRelations[type] = typeData.damage_relations
     };
+
+    
   }
     
     
@@ -48,20 +51,20 @@
             </div>
             <div class="pokemon-info">
               <h1 class="capitalize">{pokemonData.name}</h1>
-              <ul>
-                <li class="capitalize">Pokedex Number: {pokemonData.id}</li>
-                <li class="capitalize">Type: 
+              <h2>#{pokemonData.id}</h2>
+              <ul class="grid-list">
+                <li class="capitalize type">Type: 
                   {#each pokemonTypes as type}
                     {type + " "}
                   {/each}
                 </li>
                 {#each Object.keys(pokemonTypeRelations) as damageType}
-                <li class="capitalize">Super Effective Against:
+                <li class="capitalize double-d">Double Damage To:
                   {#each pokemonTypeRelations[damageType].double_damage_to as superE}
                     {superE.name + " "}
                   {/each}
                 </li>
-                <li class="capitalize">Weak Against: 
+                <li class="capitalize half-d">Weak Against: 
                   {#each pokemonTypeRelations[damageType].double_damage_from as weakA}
                     {weakA.name + " "}
                   {/each}
@@ -78,6 +81,11 @@
 
 
 <style>
+
+  h1, h2{
+    margin-top: -30px;
+  }
+
   input {
     position: relative;
     visibility:visible;
@@ -86,9 +94,7 @@
     /* margin-top: -100px; */
     color: black;
   }
-  li {
-    list-style: none;
-  }
+
   .kalos-dex {
     margin: 0 auto;
     display: flex;
@@ -101,7 +107,7 @@
   }
 
   .pokemon-search {
-    margin-top: -120px;
+    margin-top: -70px;
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -112,7 +118,7 @@
     display: flex;
     flex-direction: column;
     justify-content: start;
-    margin-top: 30%;
+    margin-top: 20%;
     height: 100%;
     width: 100%;
   }
@@ -142,7 +148,7 @@
     justify-content: space-between;
     align-items: center;
     margin: 0px auto;
-    width: 99%;
+    width: 100%;
     height: 100%; 
   }
 
@@ -153,6 +159,34 @@
 
   .capitalize {
     text-transform: capitalize;
+  }
+
+  .grid-list {
+    margin-top: -10px;
+    display: grid;
+    grid-template-columns: repeat(autofill, minmax(150px, 1fr));
+    grid-template-rows: repeat(3, 1fr);
+    list-style: none;
+    padding: 0;
+  }
+
+  .grid-list li {
+    padding: 10px;
+    border: 0.5px solid #00a2d369;
+    text-align: center;
+  }
+
+  .type {
+    grid-row: 1 / 2;
+    grid-column: 1 / 3;
+  }
+
+  .double-d {
+    grid-row: 2 / 3;
+  }
+
+  .half-d {
+    grid-row: 3 / 4;
   }
   
 </style>
