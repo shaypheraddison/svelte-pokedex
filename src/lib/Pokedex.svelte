@@ -40,9 +40,10 @@
   <div class="kalos-dex">
     <img class="top-dex" src="../src/assets/kalosdex-top.png" alt="top-dex">
       <div class="screen">
+        <button class="start-btn"></button>
         <div class="pokemon-search">
           <input class="pokemon-name" type="text" bind:value={pokemon} placeholder="Enter Pokemon Name">
-          <button on:click={fetchPokemonData}></button>
+          <button class="search-btn" on:click={fetchPokemonData}></button>
         </div>
           <div class="screen-content">
           {#if pokemonData}
@@ -102,7 +103,7 @@
     align-items: center;
     background-color: aquamarine;
     width: 440px;
-    height: 900px;
+    height: 300px;
     border-radius: 50px;
   }
 
@@ -123,7 +124,7 @@
     width: 100%;
   }
 
-  button {
+  .search-btn {
     visibility: hidden;
     margin: 0 10px auto;
     /* padding: 10px; */
@@ -188,6 +189,17 @@
 
   .half-d {
     grid-row: 3 / 4;
+  }
+
+  .bottom-dex {
+    margin-top: -50px;
+  }
+
+  .start-btn {
+    width: 150px;
+    height: 100px;
+    margin: -120px auto;
+    border-radius: 100px;
   }
   
 </style>
