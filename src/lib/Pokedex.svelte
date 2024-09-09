@@ -65,8 +65,8 @@
             {/if}
             <div class="screen-content">
             {#if pokemonData}
-              <div>
-                <img class="sprite" src="{pokemonData.sprites.front_default}" alt="{pokemonData.name}">
+              <div class="sprite">
+                <img class="sprite-img" src="{pokemonData.sprites.front_default}" alt="{pokemonData.name}">
               </div>
               <div>
                 <h1 class="capitalize">{pokemonData.name}</h1>
@@ -110,7 +110,6 @@
     }
 
     .kalos-dex {
-      margin: 0 auto;
       display: flex; 
       flex-direction: column;
       align-items: center;
@@ -123,7 +122,7 @@
     }
 
     .opened {
-      height: 800px;
+      height: 650px;
     }
 
     .pokemon-search {
@@ -177,17 +176,21 @@
     .screen-content {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: flex-start;
       align-items: center;
       margin: 0px auto;
       width: 100%;
-      height: 100%; 
     }
 
     .sprite {
       width: 200px;
-      height: 200px;
-      margin-top: 60px;
+      height: 175px;
+      /* margin-top: 10px; */
+    }
+
+    .sprite-img {
+      width: 160px;
+      height: 160px;
     }
 
     .capitalize {
@@ -204,7 +207,7 @@
     }
 
     .grid-list li {
-      padding: 10px;
+      padding: 5px;
       border: 0.5px solid #00a2d369;
       text-align: center;
     }
@@ -238,7 +241,7 @@
 
     .opened .bottom-dex {
       transform: translateY(100px);
-      margin-top: -130px;
+      margin-top: -200px;
     }
  
     .start-btn {
