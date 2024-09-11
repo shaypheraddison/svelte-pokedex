@@ -7,6 +7,14 @@
     let isOpened = false;
     let errorMessage = "";
 
+    let buttonAudio = new Audio("../src/assets/button.wav");
+    let openAudio = new Audio("../src/assets/open-dex.mp4");
+
+
+    function mouseOver() {
+      buttonAudio.play();
+    }
+
     async function fetchPokemonData() {
       errorMessage = "";
 
@@ -30,8 +38,9 @@
       } catch(error) {
         errorMessage = error.message;
         pokemonData = null;
-        pokemon = "";
       }
+
+      pokemon = "";
     }
 
     async function damageRelations() {
@@ -47,6 +56,7 @@
     
     function openDex() {
         isOpened = true;
+        openAudio.play();
       }
       
   </script>
@@ -55,7 +65,7 @@
     <div class="kalos-dex" class:opened={isOpened}>
       <img class="top-dex" src="../src/assets/kalosdex-top.png" alt="top-dex">
         <div class="screen">
-          <button class="start-btn" on:click={openDex}></button>
+          <button class="start-btn" on:click={openDex} on:pointerover={mouseOver}></button>
           <div class="pokemon-search">
             <input type="text" bind:value={pokemon} placeholder="Enter Pokemon Name">
             <button class="search-btn" on:click={fetchPokemonData}></button>
@@ -166,11 +176,21 @@
     input {
       display: block;
       font-size: large;
+      color: rgb(124, 124, 124);
       width: 45%;
       padding: 10px;
+      background-color: aquamarine;
+      border: none;
+      text-decoration: underline;
+      text-decoration-color: rgb(124, 124, 124);
     }
     input::placeholder {
       text-align: center;
+    }
+
+    input:focus {
+      border: none;
+      color: rgb(124, 124, 124);
     }
 
     .screen-content {
