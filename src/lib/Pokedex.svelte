@@ -1,4 +1,6 @@
   <script>
+    import TopDex from "./Top-Dex.svelte";
+    import BottomDex from "./Bottom-Dex.svelte";
     export let pokemon = "";
 
     let pokemonData;
@@ -18,8 +20,8 @@
 
 
     function getInputValue(event) {
-      pokemon = event.target.value;
-      isDisabled = pokemon.trim() === "";
+      pokemon = event.target.value;  //dynamically changing pokemon variable to the value of the input
+      isDisabled = pokemon.trim() === ""; // dynamically removing any whitesapce from the value and making sure that there is some data/characters entered as the value of pokemon
     }
 
     async function fetchPokemonData() {
@@ -72,7 +74,7 @@
 
   <main>
     <div class="kalos-dex" class:opened={isOpened}>
-      <img class="top-dex" src="../src/assets/kalosdex-top.png" alt="top-dex">
+      <div class="top-dex"><TopDex /></div>
         <div class="screen">
           <button class="start-btn" on:click={openDex}></button>
           <div class="pokemon-search">
@@ -113,7 +115,7 @@
             {/if}
           </div>
         </div>
-      <img class="bottom-dex" src="../src/assets/kalosdex-bottom.png" alt="bottom-dex">
+        <div class="bottom-dex"><BottomDex /></div>
     </div> 
   </main>
 
@@ -258,14 +260,14 @@
       grid-row: 3 / 4;
     }
 
-    .top-dex {
+    .bottom-dex {
       transition: transform 0.5s ease;
       margin-top: -20px;
     }
 
-    .bottom-dex {
-      transition: transform 0.5s ease;
-      margin-top: -20px;
+    .top-dex {
+        transition: transform 0.5s ease;
+        margin-top:-20px;
     }
 
     .opened .top-dex {
