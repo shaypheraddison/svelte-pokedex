@@ -5,18 +5,27 @@
     let pokemonTypes = [];
     let pokemonTypeRelations = {};
     let isOpened = false;
+    let isDisabled = true;
     let errorMessage = "";
 
-    let buttonAudio = new Audio("../src/assets/button.wav");
+    // let buttonAudio = new Audio("../src/assets/button.wav");
     let openAudio = new Audio("../src/assets/open-dex.mp4");
 
 
-    function mouseOver() {
-      buttonAudio.play();
+    // function mouseOver() {
+    //   buttonAudio.play();
+    //}
+
+
+    function getInputValue(event) {
+      pokemon = event.target.value;
+      isDisabled = pokemon.trim() === "";
     }
 
     async function fetchPokemonData() {
       errorMessage = "";
+
+      isDisabled = true;
 
       try {
         const response = await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemon.toLowerCase()}/`);
@@ -65,10 +74,10 @@
     <div class="kalos-dex" class:opened={isOpened}>
       <img class="top-dex" src="../src/assets/kalosdex-top.png" alt="top-dex">
         <div class="screen">
-          <button class="start-btn" on:click={openDex} on:pointerover={mouseOver}></button>
+          <button class="start-btn" on:click={openDex}></button>
           <div class="pokemon-search">
-            <input type="text" bind:value={pokemon} placeholder="Enter Pokemon Name">
-            <button class="search-btn" on:click={fetchPokemonData}></button>
+            <input type="text" bind:value={pokemon} on:input={getInputValue} placeholder="Enter Pokemon Name">
+            <button class="search-btn" on:click={fetchPokemonData} disabled={isDisabled}></button>
           </div>
             {#if errorMessage}
               <div class="error-message">{errorMessage}</div>
@@ -169,6 +178,10 @@
       background-color: rgb(0, 153, 255);
     }
 
+    .search-btn:hover {
+      background-color: rgb(0, 153, 255, 0.5);
+    }
+
     .opened .search-btn {
       visibility: visible;
     }
@@ -188,7 +201,7 @@
       text-align: center;
     }
 
-    input:focus {
+    input:active {
       border: none;
       color: rgb(124, 124, 124);
     }
