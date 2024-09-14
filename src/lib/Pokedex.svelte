@@ -202,8 +202,8 @@
     input:focus {
       border: none;
       outline: none;
-      text-align: start;
-      caret-color: transparent;
+      text-align: center;
+      caret-color: rgba(71, 71, 71, 0.342);
       color: rgb(71, 71, 71);
     }
 
@@ -304,7 +304,7 @@
       height: 400px;
       width: 420px;
       border-radius: 20px;
-      box-shadow: 2px 5px 15px 2px rgba(0, 0, 0, 0.5);
+      box-shadow: 2px 2px 15px 2px rgba(0, 0, 0, 0.5);
       margin: 5px;
     }
     
