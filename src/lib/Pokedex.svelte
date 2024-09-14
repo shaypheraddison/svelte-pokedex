@@ -193,6 +193,7 @@
       border: none;
       text-decoration-color: rgb(124, 124, 124);
       caret-color: transparent;
+      text-align: center;
     }
     input::placeholder {
       text-align: center;
@@ -293,11 +294,6 @@
     .start-btn:hover {
       background-color: rgba(0, 238, 255, 0.452);
       border: 12px solid rgb(0, 183, 207, 0.452);
-    }
-
-    .error-message {
-      color: red;
-      font-size: 30px;
     }
 
     .who-dat {
