@@ -1,6 +1,7 @@
   <script>
     import TopDex from "./Top-Dex.svelte";
     import BottomDex from "./Bottom-Dex.svelte";
+    import whoDat from "../assets/who-dat.png"
     export let pokemon = "";
 
     let pokemonData;
@@ -10,14 +11,7 @@
     let isDisabled = true;
     let errorMessage = "";
 
-    // let buttonAudio = new Audio("../src/assets/button.wav");
     let openAudio = new Audio("../src/assets/open-dex.mp4");
-
-
-    // function mouseOver() {
-    //   buttonAudio.play();
-    //}
-
 
     function getInputValue(event) {
       pokemon = event.target.value;  //dynamically changing pokemon variable to the value of the input
@@ -77,12 +71,14 @@
       <div class="top-dex"><TopDex /></div>
         <div class="screen">
           <button class="start-btn" on:click={openDex}></button>
-          <div class="pokemon-search">
-            <input type="text" bind:value={pokemon} on:input={getInputValue} placeholder="Enter Pokemon Name">
-            <button class="search-btn" on:click={fetchPokemonData} disabled={isDisabled}></button>
-          </div>
+            <form class="pokemon-search">
+              <input type="text" bind:value={pokemon} on:input={getInputValue} placeholder="Enter Pokemon Name">
+              <button class="search-btn" on:click={fetchPokemonData} disabled={isDisabled}></button>  
+            </form>
             {#if errorMessage}
-              <div class="error-message">{errorMessage}</div>
+              <div class="error-message">
+                <img class="who-dat" src={whoDat} alt="whos-that-pokemon">
+              </div>
             {/if}
             <div class="screen-content">
             {#if pokemonData}
@@ -126,7 +122,6 @@
       margin-top: -30px;
     }
     main {
-      /* margin-top: -100px; */
       color: black;
     }
 
@@ -138,8 +133,8 @@
       width: 440px;
       height: 350px;
       border-radius: 50px;
-      border-left: 3px solid rgb(183, 183, 183);
-      border-right: 3px solid rgb(183, 183, 183);
+      border-left: 4px solid rgb(183, 183, 183);
+      border-right: 4px solid rgb(183, 183, 183);
     }
 
     .opened {
@@ -196,16 +191,20 @@
       padding: 10px;
       background-color: aquamarine;
       border: none;
-      text-decoration: underline;
       text-decoration-color: rgb(124, 124, 124);
+      caret-color: transparent;
     }
     input::placeholder {
       text-align: center;
+      text-decoration: underline;
     }
 
-    input:active {
+    input:focus {
       border: none;
-      color: rgb(124, 124, 124);
+      outline: none;
+      text-align: start;
+      caret-color: transparent;
+      color: rgb(71, 71, 71);
     }
 
     .screen-content {
@@ -220,7 +219,6 @@
     .sprite {
       width: 200px;
       height: 175px;
-      /* margin-top: 10px; */
     }
 
     .sprite-img {
@@ -268,7 +266,7 @@
     .top-dex {
         transition: transform 0.5s ease;
         margin-top:-20px;
-    }
+      }
 
     .opened .top-dex {
       transform: translateY(-100px);
@@ -276,7 +274,7 @@
 
     .opened .bottom-dex {
       transform: translateY(100px);
-      margin-top: -200px;
+      margin-top: -110px;
     }
  
     .start-btn {
@@ -300,6 +298,14 @@
     .error-message {
       color: red;
       font-size: 30px;
+    }
+
+    .who-dat {
+      height: 400px;
+      width: 420px;
+      border-radius: 20px;
+      box-shadow: 2px 5px 15px 2px rgba(0, 0, 0, 0.5);
+      margin: 5px;
     }
     
   </style>
