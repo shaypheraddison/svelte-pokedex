@@ -7,13 +7,14 @@
     let pokemonData;
     let pokemonTypes = [];
     let pokemonTypeRelations = {};
-    let pokemonVersion = {};
+    // let pokemonVersion = {};
     let shinySprite = "";
     let isOpened = false;
     let isDisabled = true;
     let errorMessage = "";
     let isShiny = false;
 
+    let whosThatPokemonSound = new Audio("../src/assets/whos-that-pokemon_.mp3");
     let openAudio = new Audio("../src/assets/open-dex.mp4");
 
     function getInputValue(event) {
@@ -71,6 +72,10 @@
 
     function showShiny() {
       isShiny = !isShiny;
+    }
+
+    $: if (errorMessage) {
+      whosThatPokemonSound.play();
     }
       
   </script>
