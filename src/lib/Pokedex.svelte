@@ -7,6 +7,7 @@
     let pokemonData;
     let pokemonTypes = [];
     let pokemonTypeRelations = {};
+    let pokemonVersion = {};
     let shinySprite = "";
     let isOpened = false;
     let isDisabled = true;
@@ -48,11 +49,12 @@
         pokemonData = null;
       }
 
+      console.log(pokemonData);
+
       pokemon = "";
     }
 
     async function damageRelations() {
-      
       pokemonTypeRelations = {};
       for (const type of pokemonTypes) {
         const damageResponse = await fetch(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}/`);
@@ -115,13 +117,13 @@
                   </li>
                   {#each Object.keys(pokemonTypeRelations) as damageType}
                   <li class="capitalize double-d">Double Damage To:
-                    {#each pokemonTypeRelations[damageType].double_damage_to as superE}
-                      {#if superE === " "}
-                        <p>None</p>
-                      {:else}
-                        {superE.name + " "}
-                      {/if}
-                    {/each}
+                    {#if pokemonTypeRelations[damageType].double_damage_to.length === 0}
+                      None
+                    {:else}
+                      {#each pokemonTypeRelations[damageType].double_damage_to as superE}
+                          {superE.name + " "}
+                      {/each}
+                    {/if}
                   </li>
                   <li class="capitalize half-d">Weak Against: 
                     {#each pokemonTypeRelations[damageType].double_damage_from as weakA}
