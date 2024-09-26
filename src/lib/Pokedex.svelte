@@ -7,10 +7,14 @@
     let pokemonData;
     let pokemonTypes = [];
     let pokemonTypeRelations = {};
+    // let pokemonVersion = {};
+    let shinySprite = "";
     let isOpened = false;
     let isDisabled = true;
     let errorMessage = "";
+    let isShiny = false;
 
+    let whosThatPokemonSound = new Audio("../src/assets/whos-that-pokemon_.mp3");
     let openAudio = new Audio("../src/assets/open-dex.mp4");
 
     function getInputValue(event) {
@@ -31,6 +35,7 @@
         }
 
         pokemonData = await response.json();
+        shinySprite = pokemonData.sprites.front_shiny;
 
         pokemonTypes = [];
         for (const typeName of pokemonData.types) {
@@ -45,11 +50,12 @@
         pokemonData = null;
       }
 
+      console.log(pokemonData);
+
       pokemon = "";
     }
 
     async function damageRelations() {
-      
       pokemonTypeRelations = {};
       for (const type of pokemonTypes) {
         const damageResponse = await fetch(`https://pokeapi.co/api/v2/type/${type.toLowerCase()}/`);
@@ -63,6 +69,14 @@
         isOpened = true;
         openAudio.play();
       }
+
+    function showShiny() {
+      isShiny = !isShiny;
+    }
+
+    $: if (errorMessage) {
+      whosThatPokemonSound.play();
+    }
       
   </script>
 
@@ -82,9 +96,21 @@
             {/if}
             <div class="screen-content">
             {#if pokemonData}
-              <div class="sprite">
-                <img class="sprite-img" src="{pokemonData.sprites.front_default}" alt="{pokemonData.name}">
+              <div class="sprite-container">
+                {#if isShiny}
+                <img class="sprite-img" src="{shinySprite}" alt="{pokemonData.name}">
+                {:else} 
+                  <img class="sprite-img" src="{pokemonData.sprites.front_default}" alt="{pokemonData.name}">
+                {/if}
+                <button class="toggle-sprite" on:click={showShiny}>
+                  {#if isShiny}
+                    Normal
+                  {:else}
+                    Shiny
+                  {/if}
+                </button>
               </div>
+
               <div>
                 <h1 class="capitalize">{pokemonData.name}</h1>
                 <h2>#{pokemonData.id}</h2>
@@ -96,9 +122,13 @@
                   </li>
                   {#each Object.keys(pokemonTypeRelations) as damageType}
                   <li class="capitalize double-d">Double Damage To:
-                    {#each pokemonTypeRelations[damageType].double_damage_to as superE}
-                      {superE.name + " "}
-                    {/each}
+                    {#if pokemonTypeRelations[damageType].double_damage_to.length === 0}
+                      None
+                    {:else}
+                      {#each pokemonTypeRelations[damageType].double_damage_to as superE}
+                          {superE.name + " "}
+                      {/each}
+                    {/if}
                   </li>
                   <li class="capitalize half-d">Weak Against: 
                     {#each pokemonTypeRelations[damageType].double_damage_from as weakA}
@@ -114,6 +144,7 @@
         <div class="bottom-dex"><BottomDex /></div>
     </div> 
   </main>
+
 
 
   <style>
@@ -217,9 +248,25 @@
       width: 100%;
     }
 
-    .sprite {
-      width: 200px;
+    .sprite-container {
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      width: 375px;
       height: 175px;
+    }
+
+    .toggle-sprite {
+      margin-left: 18px;
+      width: 90px;
+      height: 30px;
+      border-radius: 30px;
+      font-size: 20px;
+      background-color: rgb(0, 153, 255);
+    }
+
+    .toggle-sprite:hover {
+      background-color: rgb(0, 153, 255, 0.5);
     }
 
     .sprite-img {
